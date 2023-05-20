@@ -6,7 +6,7 @@ def differentiate_monomial(monomial, differentiate_variable)
   
   regex = '(?<var>[a-z])'
   if monomial.include?('*') then 
-    regex.insert(0, '((?<mult>\d+(.\d+)?)\*)') 
+    regex.insert(0, '((?<mult>\d+(\.\d+)?)\*)') 
     has_mult = true
   end
   if monomial.include?('^') then 
@@ -20,16 +20,18 @@ def differentiate_monomial(monomial, differentiate_variable)
   if match == nil then return nil end
   if match[:var] != differentiate_variable then return "" end
 
-  res = nil
-
   mult = 1.0
   if has_mult then mult = match[:mult].to_f end
   pow = 1
-  if has_pow then pow = match[:pow].to_i 
-  else return "%{a}" % {a: mult} end
+  if has_pow then pow = match[:pow].to_i end
   
   mult *= pow
+  temp = mult.divmod(1)
+  if temp[1] == 0.0 then mult = temp[0] end
   pow -= 1
-  if pow == 1 then return "%{a}*%{b}" % {a: mult, b: match[:var]}
-  else return "%{a}*%{b}^%{c}" % {a: mult, b: match[:var], c: pow} end
+  
+  if pow == 0 then return "%{a}" % {a: mult} end
+  if pow == 1 then return "%{a}*%{b}" % {a: mult, b: match[:var]} end
+  
+  return "%{a}*%{b}^%{c}" % {a: mult, b: match[:var], c: pow}
 end
