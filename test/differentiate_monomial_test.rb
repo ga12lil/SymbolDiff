@@ -1,4 +1,4 @@
-require_relative "differentiate_monomial"
+require_relative "../lib/differentiate_monomial"
 require "test/unit"
 
 class DifferentiateMonomialTest < Test::Unit::TestCase

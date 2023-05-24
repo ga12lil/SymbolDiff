@@ -10,4 +10,5 @@ module SymbolDiff
   def diff(input,differentiate_variable)
     differentiate_polynomial(input,differentiate_variable)
   end
+
 end
