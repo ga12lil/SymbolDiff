@@ -1,13 +1,18 @@
-# frozen_string_literal: true
+require_relative "../lib/SymbolDiff.rb"
+require "test/unit"
 
-require "test_helper"
+class SymbolDiffTest < Test::Unit::TestCase
 
-class TestSymbolDiff < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::SymbolDiff::VERSION
-  end
-
-  def test_it_does_something_useful
-    assert false
+  def test_function
+    assert_equal "2*x", SymbolDiff.diff("x^2", 'x')
+    assert_equal "8*x+6", SymbolDiff.diff("4*x^2+6*x+6", 'x')
+    assert_equal "2*x+6*x^2", SymbolDiff.diff("x^2+2*x^3+6", 'x')
+    assert_equal nil, SymbolDiff.diff("rubyruby", 'x')
+    assert_equal nil, SymbolDiff.diff("2*x + 25", 'x')
+    assert_equal "0", SymbolDiff.diff("x^3", 'y')
+    assert_equal "2+12*y", SymbolDiff.diff("2*y+2*x^3+6*y^2", 'y')
+    assert_equal nil, SymbolDiff.diff("", 'y')
+    assert_equal nil, SymbolDiff.diff("2*x^2+15", '')
+    assert_equal "0", SymbolDiff.diff("15*3+25+2", 'x')
   end
 end
