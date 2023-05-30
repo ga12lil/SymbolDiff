@@ -8,7 +8,11 @@ module SymbolDiff
   class Error < StandardError; end
 
   def diff(input,differentiate_variable)
-    differentiate_polynomial(input,differentiate_variable)
+    str = differentiate_polynomial(input,differentiate_variable)
+    if(str[0] == '+')
+      str = str[1..-1]
+    end
+    return str
   end
 
 end
