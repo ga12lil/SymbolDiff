@@ -6,7 +6,7 @@ Library for symbolic differentiation of polynomials. The input is a string of th
 
 To use you need call SymbolDiff.diff( inputString, variable ) where: 
 
-inputString - symbolic  polynomials in string format like “x^2+4*x+3+y” without spaces and only in downcase
+inputString - symbolic  polynomials in string format like “4*x^2+4*x+3+y^2” without spaces and only in downcase
 
 variable - variable to differentiate, e.g. 'x'
 
