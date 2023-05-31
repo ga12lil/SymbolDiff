@@ -9,8 +9,10 @@ module SymbolDiff
 
   def diff(input,differentiate_variable)
     str = differentiate_polynomial(input,differentiate_variable)
-    if(str[0] == '+')
-      str = str[1..-1]
+    if(str!= nil)
+      if(str[0] == '+')
+        str = str[1..-1]
+      end
     end
     return str
   end
